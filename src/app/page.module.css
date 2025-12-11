@@ -43,6 +43,7 @@
     opacity: 0.9;
     font-weight: 300;
     font-family: 'Times New Roman', Times, Georgia, serif;
+    animation: fadeInUp 1s ease-out 0.2s both;
 }
 
 .title {
@@ -52,6 +53,7 @@
     letter-spacing: 0.02em;
     margin: 0;
     line-height: 1;
+    animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 .tagline {
@@ -61,6 +63,45 @@
     margin-top: 2rem;
     opacity: 0.9;
     font-weight: 300;
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+/* Contact Section */
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 0rem;
+    background: var(--background);
+}
+
+.contactItem {
+    font-size: 0.875rem;
+    font-weight: 300;
+    font-family: 'Times New Roman', Times, Georgia, serif;
+    color: var(--foreground);
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.contactItem:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.contactItem:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.contactItem:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.contactItem:hover {
+    opacity: 1;
 }
 
 /* Gallery Section */
@@ -99,17 +140,27 @@
         margin-top: 1.5rem;
     }
 
+    .contact {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 1rem 4rem;
+    }
+
+    .contactItem {
+        font-size: 1rem;
+        letter-spacing: 0.25em;
+    }
+
     .gallery {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        padding: 4rem;
+        padding: 1 rem 4rem;
         max-width: 1400px;
         margin: 0 auto;
     }
 
     .imageWrapper {
-        border-radius: 4px;
     }
 }
 
@@ -119,5 +170,17 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 2.5rem;
         padding: 5rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 0.9;
+        transform: translateY(0);
     }
 }

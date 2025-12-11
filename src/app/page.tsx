@@ -64,6 +64,13 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Contact Section */}
+            <section className={styles.contact}>
+                <a href="mailto:svarckaterin@gmail.com" className={styles.contactItem}>svarckaterin@gmail.com</a>
+                <a href="tel:+420777746885" className={styles.contactItem}>+420777746885</a>
+                <a href="https://instagram.com/aaaskarinaaa" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>@aaaskarinaaa</a>
+            </section>
+
             {/* Image Gallery */}
             <section className={styles.gallery}>
                 {galleryImages.map((image, index) => (
