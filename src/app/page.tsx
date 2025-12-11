@@ -1,47 +1,41 @@
 import styles from './page.module.css'
 import Image from 'next/image'
+import { promises as fs } from 'fs'
+import path from 'path'
 
-const galleryImages = [
-    { src: '/uschovna/ASKARINA-1.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-35.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-42.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-64.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-69.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-77.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-91.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-105.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-107.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-115.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-121.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-122.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-124.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-128.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-132.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-152.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-214.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-218.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-230.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-246.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-247.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-274.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-277.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-295.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-298.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-299.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-325.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-361.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-372.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-381.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-414.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-415.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-421.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-474.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-484.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-497.jpg', alt: 'Askarina' },
-    { src: '/uschovna/ASKARINA-510.jpg', alt: 'Askarina' },
-]
+interface GalleryImage {
+    src: string
+    alt: string
+    visible: boolean
+}
 
-export default function Home() {
+interface Config {
+    texts: {
+        subtitle: string
+        title: string
+        tagline: string
+    }
+    contact: {
+        email: string
+        phone: string
+        instagram: string
+        instagramUrl: string
+    }
+    images: GalleryImage[]
+}
+
+async function getConfig(): Promise<Config> {
+    const configPath = path.join(process.cwd(), 'src/data/config.json')
+    const data = await fs.readFile(configPath, 'utf-8')
+    return JSON.parse(data)
+}
+
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+    const config = await getConfig()
+    const visibleImages = config.images.filter(img => img.visible)
+
     return (
         <main className={styles.page}>
             {/* Hero Section with Video */}
@@ -58,22 +52,22 @@ export default function Home() {
 
                 {/* Text Overlay */}
                 <div className={styles.overlay}>
-                    <span className={styles.subtitle}>Primitive pieces</span>
-                    <h1 className={styles.title}>Askarina</h1>
-                    <span className={styles.tagline}>attempts for everyone</span>
+                    <span className={styles.subtitle}>{config.texts.subtitle}</span>
+                    <h1 className={styles.title}>{config.texts.title}</h1>
+                    <span className={styles.tagline}>{config.texts.tagline}</span>
                 </div>
             </section>
 
             {/* Contact Section */}
             <section className={styles.contact}>
-                <a href="mailto:svarckaterin@gmail.com" className={styles.contactItem}>svarckaterin@gmail.com</a>
-                <a href="tel:+420777746885" className={styles.contactItem}>+420777746885</a>
-                <a href="https://instagram.com/aaaskarinaaa" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>@aaaskarinaaa</a>
+                <a href={`mailto:${config.contact.email}`} className={styles.contactItem}>{config.contact.email}</a>
+                <a href={`tel:${config.contact.phone}`} className={styles.contactItem}>{config.contact.phone}</a>
+                <a href={config.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className={styles.contactItem}>{config.contact.instagram}</a>
             </section>
 
             {/* Image Gallery */}
             <section className={styles.gallery}>
-                {galleryImages.map((image, index) => (
+                {visibleImages.map((image, index) => (
                     <div key={index} className={styles.imageWrapper}>
                         <Image
                             src={image.src}

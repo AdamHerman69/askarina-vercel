@@ -1,0 +1,215 @@
+.container {
+    min-height: 100vh;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #333;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.message {
+    font-size: 0.875rem;
+    color: #10b981;
+}
+
+.saveButton {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.saveButton:hover {
+    background: #1d4ed8;
+}
+
+.saveButton:disabled {
+    background: #6b7280;
+    cursor: not-allowed;
+}
+
+.unauthorized {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.unauthorized h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.unauthorized code {
+    background: #1f2937;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.section {
+    margin-bottom: 3rem;
+}
+
+.section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.hint {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+.form {
+    display: grid;
+    gap: 1rem;
+    max-width: 500px;
+}
+
+.form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d1d5db;
+}
+
+.form input {
+    padding: 0.75rem;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    background: #111827;
+    color: white;
+    font-size: 1rem;
+}
+
+.form input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.imageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.imageCard {
+    background: #1f2937;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: grab;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.imageCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.imageCard.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    border-color: #2563eb;
+}
+
+.imageCard.hidden {
+    opacity: 0.4;
+}
+
+.imageCard.hidden .imagePreview {
+    filter: grayscale(100%);
+}
+
+.imagePreview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+}
+
+.imageControls {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imageIndex {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.buttons button {
+    background: #374151;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.buttons button:hover:not(:disabled) {
+    background: #4b5563;
+}
+
+.buttons button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.visible {
+    background: #10b981 !important;
+}
+
+.hiddenBtn {
+    background: #ef4444 !important;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .imageGrid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
